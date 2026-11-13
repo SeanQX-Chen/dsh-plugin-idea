@@ -1,0 +1,3238 @@
+/* dsh-idea-git component styles.
+ * Panel internals use OpenIDEA's token names (defined by tokens.css scoped to
+ * .dig-theme). The composer entry button lives outside .dig-theme, so it uses the
+ * DSH alias tokens directly.
+ */
+
+/* ---------------- composer entry button ---------------- */
+.dig-entry {
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--dsw-alias-label-secondary);
+  cursor: pointer;
+  transition:
+    background 120ms ease,
+    color 120ms ease;
+}
+.dig-entry:hover {
+  background: color-mix(in srgb, var(--dsw-alias-label-primary) 8%, transparent);
+  color: var(--dsw-alias-label-primary);
+}
+.dig-entry:active {
+  background: color-mix(in srgb, var(--dsw-alias-label-primary) 12%, transparent);
+}
+/* Panel open: keep the highlight permanently. */
+.dig-entry[data-active="true"] {
+  background: color-mix(in srgb, var(--dsw-alias-brand-primary) 16%, transparent);
+  color: var(--dsw-alias-brand-primary);
+}
+.dig-entry[data-active="true"]:hover {
+  background: color-mix(in srgb, var(--dsw-alias-brand-primary) 22%, transparent);
+  color: var(--dsw-alias-brand-primary);
+}
+.dig-entry:focus-visible {
+  outline: 2px solid var(--dsw-alias-brand-primary);
+  outline-offset: -2px;
+}
+
+/* ---------------- panel shell ---------------- */
+.dig-theme {
+  font-family: var(--font-ui);
+  font-size: var(--fs-ui);
+  color: var(--fg);
+  line-height: 1.45;
+}
+.dig-panel {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-app);
+  color: var(--fg);
+  border-top: 1px solid var(--border-strong);
+  box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.28);
+  overflow: hidden;
+}
+.dig-panel__handle {
+  flex: none;
+  height: 6px;
+  cursor: row-resize;
+  background: transparent;
+}
+.dig-panel__handle:hover {
+  background: var(--accent);
+  opacity: 0.4;
+}
+.dig-panel__header {
+  flex: none;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 8px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-elev);
+  user-select: none;
+}
+.dig-panel__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  color: var(--fg-strong);
+  margin-right: 6px;
+  white-space: nowrap;
+}
+.dig-panel__tabs {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  min-width: 0;
+  overflow: hidden;
+}
+.dig-tab {
+  height: 26px;
+  padding: 0 10px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--fg-secondary);
+  cursor: pointer;
+  font-size: var(--fs-ui);
+  white-space: nowrap;
+}
+.dig-tab:hover {
+  background: var(--bg-hover);
+  color: var(--fg);
+}
+.dig-tab[data-active="true"] {
+  background: var(--bg-selected);
+  color: var(--fg-strong);
+}
+.dig-panel__spacer {
+  flex: 1;
+  min-width: 8px;
+}
+.dig-panel__branch {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 24px;
+  max-width: 220px;
+  padding: 0 8px;
+  border-radius: 6px;
+  color: var(--fg-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dig-panel__branch:hover {
+  background: var(--bg-hover);
+  color: var(--fg);
+}
+.dig-panel__body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.dig-banner {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 10px;
+  font-size: var(--fs-small);
+  border-bottom: 1px solid var(--border);
+}
+.dig-banner--error {
+  color: var(--danger);
+  background: color-mix(in srgb, var(--danger) 12%, transparent);
+}
+.dig-banner--busy {
+  color: var(--fg-secondary);
+}
+.dig-banner__close {
+  margin-left: auto;
+}
+
+/* ---------------- generic controls ---------------- */
+.dig-iconbtn {
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--fg-icon);
+  cursor: pointer;
+}
+.dig-iconbtn:hover {
+  background: var(--bg-hover);
+  color: var(--fg-strong);
+}
+.dig-iconbtn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.dig-iconbtn[data-active="true"] {
+  background: var(--bg-selected);
+  color: var(--fg-strong);
+}
+.dig-btn {
+  height: 26px;
+  padding: 0 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  background: var(--bg-elev);
+  color: var(--fg);
+  cursor: pointer;
+  font-size: var(--fs-ui);
+  white-space: nowrap;
+}
+.dig-btn:hover {
+  background: var(--bg-hover);
+}
+.dig-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.dig-btn--primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.dig-btn--primary:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  filter: brightness(1.08);
+}
+.dig-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  color: var(--fg-secondary);
+  font-size: var(--fs-ui);
+}
+.dig-check__box {
+  width: 14px;
+  height: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  box-shadow: inset 0 0 0 1px var(--control-off);
+  background: var(--bg-input);
+  color: #fff;
+}
+.dig-check__box[data-on="true"] {
+  background: var(--accent);
+  box-shadow: none;
+}
+
+/* ---------------- dropdown / menu ---------------- */
+.dig-dropdown {
+  position: relative;
+}
+.dig-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: 80;
+  min-width: 200px;
+  max-height: 60vh;
+  overflow: auto;
+  padding: 4px;
+  border: 1px solid var(--border-popup);
+  border-radius: 8px;
+  background: var(--bg-popup);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+}
+.dig-menu--right {
+  left: auto;
+  right: 0;
+}
+.dig-menuitem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  height: 26px;
+  padding: 0 8px;
+  border: none;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--fg);
+  cursor: pointer;
+  text-align: left;
+  font-size: var(--fs-ui);
+}
+.dig-menuitem:hover {
+  background: var(--bg-hover);
+}
+.dig-menuitem--danger {
+  color: var(--danger);
+}
+.dig-menuitem:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.dig-menuitem__check {
+  width: 14px;
+  display: inline-flex;
+}
+.dig-menuitem__label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.dig-menu__sep {
+  height: 1px;
+  margin: 4px 6px;
+  background: var(--border, rgba(128, 128, 128, 0.28));
+}
+.dig-menu__heading {
+  padding: 2px 10px 3px;
+  font-size: 11px;
+  opacity: 0.6;
+  user-select: none;
+}
+.dig-publish {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 6px 8px;
+  width: 280px;
+}
+.dig-publish__providers {
+  display: flex;
+  gap: 6px;
+}
+.dig-publish__providers .dig-btn {
+  flex: 1;
+}
+.dig-publish__providers .dig-btn--active {
+  border-color: var(--accent, #3574f0);
+  color: var(--accent, #3574f0);
+}
+.dig-publish__hint {
+  font-size: 11px;
+  opacity: 0.65;
+  line-height: 1.4;
+}
+.dig-publish__actions {
+  display: flex;
+  gap: 6px;
+}
+.dig-btn--link {
+  border-color: transparent;
+  background: transparent;
+  color: var(--fg-muted, inherit);
+}
+
+/* ---------------- splitter ---------------- */
+.dig-split {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  overflow: hidden;
+}
+.dig-split--h {
+  flex-direction: row;
+}
+.dig-split--v {
+  flex-direction: column;
+}
+.dig-split__first {
+  flex: none;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.dig-split__second {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.dig-split__handle {
+  flex: none;
+  background: var(--border);
+}
+.dig-split--h > .dig-split__handle {
+  width: 1px;
+  cursor: col-resize;
+}
+.dig-split--v > .dig-split__handle {
+  height: 1px;
+  cursor: row-resize;
+}
+.dig-split__handle:hover {
+  background: var(--accent);
+}
+.dig-hlayout {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  overflow: hidden;
+}
+.dig-vlayout {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.dig-vlayout__handle {
+  flex: none;
+  height: 5px;
+  cursor: row-resize;
+}
+.dig-vlayout__handle:hover {
+  background: var(--accent);
+  opacity: 0.4;
+}
+
+/* ---------------- toolbar / empty ---------------- */
+.dig-toolbar {
+  flex: none;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 0 6px;
+  border-bottom: 1px solid var(--border);
+}
+.dig-toolbar__sep {
+  width: 1px;
+  height: 16px;
+  margin: 0 4px;
+  background: var(--border);
+}
+.dig-toolbar__hint {
+  color: var(--fg-subtle);
+  font-size: var(--fs-small);
+}
+.dig-empty {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--fg-subtle);
+  font-size: var(--fs-ui);
+  padding: 24px;
+  text-align: center;
+}
+
+/* ---------------- changes ---------------- */
+.dig-changes {
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+.dig-treewrap {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+.dig-group {
+  display: flex;
+  flex-direction: column;
+}
+.dig-group__body {
+  padding-left: 14px;
+}
+.dig-group__head {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 26px;
+  padding: 0 8px;
+  background: var(--bg-elev);
+  color: var(--fg-secondary);
+  font-weight: 600;
+  font-size: var(--fs-small);
+  border-bottom: 1px solid var(--border);
+}
+.dig-group__count {
+  color: var(--fg-subtle);
+  font-weight: 400;
+}
+.dig-group__actions {
+  margin-left: auto;
+}
+.dig-dirrow {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 22px;
+  cursor: pointer;
+  color: var(--fg-secondary);
+  white-space: nowrap;
+  user-select: none;
+}
+.dig-dirrow:hover {
+  background: var(--bg-tree-hover);
+}
+.dig-filerow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 22px;
+  padding: 0 8px 0 22px;
+  white-space: nowrap;
+  cursor: default;
+}
+.dig-filerow:hover {
+  background: var(--bg-tree-hover);
+}
+.dig-filerow__icon {
+  flex: none;
+  display: inline-flex;
+}
+.dig-filerow__name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dig-filerow__dir {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--fg-subtle);
+  font-size: var(--fs-small);
+}
+.dig-filerow__letter {
+  flex: none;
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: var(--fs-tiny);
+  font-weight: 600;
+}
+.dig-filerow__actions {
+  flex: none;
+  display: none;
+  align-items: center;
+  gap: 1px;
+}
+.dig-filerow:hover .dig-filerow__actions {
+  display: inline-flex;
+}
+
+/* ---------------- commit panel ---------------- */
+.dig-commit {
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--border);
+  background: var(--bg-elev);
+}
+.dig-commit__bar {
+  flex: none;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+}
+.dig-commit__len {
+  color: var(--fg-faint);
+  font-family: var(--font-mono);
+  font-size: var(--fs-tiny);
+}
+.dig-commit__message {
+  flex: 1;
+  min-height: 48px;
+  margin: 0;
+  padding: 6px 10px;
+  resize: none;
+  border: 0;
+  border-top: 1px solid var(--border);
+  outline: none;
+  background: var(--bg-input);
+  color: var(--fg-strong);
+  font-family: var(--font-mono);
+  font-size: var(--fs-code);
+  line-height: var(--lh-code, 1.5);
+}
+.dig-commit__message::placeholder {
+  color: var(--fg-subtle);
+  font-family: var(--font-ui);
+  font-size: var(--fs-ui);
+}
+.dig-commit__actions {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+}
+.dig-commit__busy {
+  color: var(--fg-subtle);
+  font-size: var(--fs-small);
+}
+
+/* ---------------- log ---------------- */
+.dig-log {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.dig-filterbar {
+  flex: none;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 8px;
+  border-bottom: 1px solid var(--border);
+}
+.dig-search {
+  flex: 0 1 240px;
+  height: 24px;
+  padding: 0 8px;
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  background: var(--bg-input);
+  color: var(--fg);
+  outline: none;
+  font-size: var(--fs-ui);
+}
+.dig-search:focus {
+  border-color: var(--accent);
+}
+.dig-commitlist {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  outline: none;
+}
+.dig-listhead {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  height: 24px;
+  padding: 0 8px;
+  background: var(--bg-elev);
+  border-bottom: 1px solid var(--border);
+  color: var(--fg-subtle);
+  font-size: var(--fs-small);
+}
+.dig-crow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 26px;
+  padding: 0 8px;
+  white-space: nowrap;
+  cursor: default;
+  font-size: var(--fs-ui);
+}
+.dig-crow:hover {
+  background: var(--bg-tree-hover);
+}
+.dig-crow[data-selected="true"] {
+  background: var(--bg-tree-selected);
+}
+.dig-crow__graph {
+  flex: none;
+  overflow: visible;
+}
+.dig-crow__subject {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.dig-crow__author {
+  flex: none;
+  width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--fg-secondary);
+}
+.dig-crow__date {
+  flex: none;
+  width: 120px;
+  color: var(--fg-subtle);
+}
+.dig-crow__hash {
+  flex: none;
+  width: 66px;
+  font-family: var(--font-mono);
+  color: var(--fg-subtle);
+}
+.dig-refs {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex: none;
+}
+.dig-ref {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  max-width: 170px;
+  padding: 0 5px;
+  border-radius: 4px;
+  font-size: var(--fs-tiny);
+  line-height: 16px;
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  color: var(--accent);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.dig-ref--head {
+  background: color-mix(in srgb, var(--warning) 18%, transparent);
+  color: var(--warning);
+}
+.dig-ref--remote {
+  background: color-mix(in srgb, var(--syn-annotation) 18%, transparent);
+  color: var(--syn-annotation);
+}
+.dig-ref--tag {
+  background: color-mix(in srgb, var(--fg-subtle) 20%, transparent);
+  color: var(--fg-secondary);
+}
+
+/* branches panel */
+.dig-branches {
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--border);
+}
+.dig-branches__head {
+  flex: none;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 8px;
+  border-bottom: 1px solid var(--border);
+  color: var(--fg-secondary);
+  font-weight: 600;
+  font-size: var(--fs-small);
+}
+.dig-branches__list {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+/* Unified branch tree layout: [depth*16][16 toggle][16 icon][label] */
+.dig-tree-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 22px;
+  padding-left: calc(var(--tree-depth, 0) * 16px + 8px);
+  padding-right: 8px;
+  cursor: pointer;
+  color: var(--fg-secondary);
+  white-space: nowrap;
+  user-select: none;
+}
+.dig-tree-row:hover {
+  background: var(--bg-tree-hover);
+}
+.dig-tree-row[data-current="true"] {
+  color: var(--fg-strong);
+  font-weight: 600;
+}
+.dig-tree-row__toggle {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.dig-tree-row__icon {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.dig-tree-row__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dig-tree-row[data-selected="true"] {
+  background: var(--bg-tree-selected, var(--bg-hover));
+}
+.dig-branchrow {
+  min-width: 0;
+}
+.dig-branchrow:hover {
+  background: var(--bg-tree-hover);
+}
+.dig-branchrow[data-current="true"] {
+  color: var(--fg-strong);
+  font-weight: 600;
+}
+.dig-branchrow__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dig-branchrow__sync {
+  margin-left: auto;
+  color: var(--fg-subtle);
+  font-size: var(--fs-tiny);
+}
+
+/* details */
+.dig-details {
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid var(--border);
+}
+.dig-details__msg {
+  flex: none;
+  max-height: 45%;
+  overflow: auto;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  user-select: text;
+}
+.dig-details__subject {
+  color: var(--fg-strong);
+  font-weight: 600;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.dig-details__body {
+  margin-top: 6px;
+  color: var(--fg);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.dig-details__meta {
+  margin-top: 8px;
+  color: var(--fg-subtle);
+  font-size: var(--fs-small);
+  line-height: 1.5;
+}
+.dig-details__hash {
+  font-family: var(--font-mono);
+}
+.dig-details__files {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+.dig-details__fileshead {
+  padding: 6px 12px;
+  color: var(--fg-subtle);
+  font-size: var(--fs-small);
+}
+.dig-dfile {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 22px;
+  padding: 0 12px;
+  white-space: nowrap;
+}
+.dig-dfile:hover {
+  background: var(--bg-tree-hover);
+}
+.dig-dfile__letter {
+  flex: none;
+  width: 12px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: var(--fs-tiny);
+}
+.dig-dfile__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dig-dfile__dir {
+  color: var(--fg-subtle);
+  font-size: var(--fs-small);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---------------- console ---------------- */
+.dig-console {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+.dig-console__bar {
+  flex: none;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 8px;
+  border-bottom: 1px solid var(--border);
+}
+.dig-console__body {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 6px 10px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  line-height: 18px;
+  user-select: text;
+}
+.dig-console__cmd {
+  margin-top: 6px;
+  color: var(--fg-emphasis);
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+.dig-console__out {
+  color: var(--fg-secondary);
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+.dig-console__err {
+  color: var(--danger);
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+.dig-console__time {
+  color: var(--fg-faint);
+}
+
+/* ---------------- diff drawer ---------------- */
+.dig-panel__body {
+  position: relative;
+}
+.dig-filerow,
+.dig-dfile {
+  cursor: pointer;
+}
+.dig-diff {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(760px, 62%);
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-app);
+  border-left: 1px solid var(--border-strong);
+  box-shadow: -8px 0 24px rgba(0, 0, 0, 0.25);
+  z-index: 20;
+}
+.dig-diff__head {
+  flex: none;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-elev);
+}
+.dig-diff__title {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.dig-diff__body {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 6px 0;
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  line-height: 18px;
+  user-select: text;
+}
+.dig-diffline {
+  white-space: pre;
+  padding: 0 12px;
+  min-height: 18px;
+}
+.dig-diffline--add {
+  background: color-mix(in srgb, var(--vcs-added) 16%, transparent);
+  color: var(--vcs-added);
+}
+.dig-diffline--del {
+  background: color-mix(in srgb, var(--danger) 14%, transparent);
+  color: var(--danger);
+}
+.dig-diffline--hunk {
+  color: var(--syn-annotation);
+}
+.dig-diffline--meta {
+  color: var(--fg-subtle);
+}
+
+/* ---------------- stash ---------------- */
+.dig-stash {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+.dig-stash__list {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+.dig-stashrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+}
+.dig-stashrow:hover {
+  background: var(--bg-tree-hover);
+}
+.dig-stashrow__main {
+  flex: 1;
+  min-width: 0;
+}
+.dig-stashrow__msg {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--fg);
+}
+.dig-stashrow__meta {
+  color: var(--fg-subtle);
+  font-size: var(--fs-small);
+  margin-top: 2px;
+}
+.dig-stashrow__actions {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ---------------- blame ---------------- */
+.dig-blame {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  line-height: 18px;
+}
+.dig-blameline {
+  display: flex;
+  gap: 10px;
+  white-space: pre;
+  padding: 0 12px;
+  min-height: 18px;
+}
+.dig-blameline:hover {
+  background: var(--bg-tree-hover);
+}
+.dig-blameline__sha {
+  flex: none;
+  width: 64px;
+  color: var(--fg-subtle);
+}
+.dig-blameline__author {
+  flex: none;
+  width: 110px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--fg-secondary);
+}
+.dig-blameline__time {
+  flex: none;
+  width: 84px;
+  color: var(--fg-faint);
+}
+.dig-blameline__code {
+  flex: 1;
+  color: var(--fg);
+}
+
+/* ---------------- worktrees ---------------- */
+.dig-wt {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+.dig-wt__list {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+.dig-wtrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+}
+.dig-wtrow:hover {
+  background: var(--bg-tree-hover);
+}
+.dig-wtrow__main {
+  flex: 1;
+  min-width: 0;
+}
+.dig-wtrow__path {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.dig-wtrow__meta {
+  color: var(--fg-subtle);
+  font-size: var(--fs-small);
+  margin-top: 2px;
+}
+.dig-wtrow__badge {
+  flex: none;
+  padding: 0 6px;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  color: var(--accent);
+  font-size: var(--fs-tiny);
+  line-height: 18px;
+}
+
+/* ---------------- size tuning (panel reads a bit larger than tokens default) ---------------- */
+.dig-theme {
+  --fs-ui: 14px;
+  --fs-small: 12.5px;
+  --fs-tiny: 11.5px;
+}
+.dig-filerow {
+  height: 26px;
+  font-size: 14px;
+}
+.dig-filerow__name {
+  font-size: 14px;
+}
+.dig-filerow__dir {
+  font-size: 12.5px;
+}
+.dig-filerow__letter {
+  font-size: 12px;
+}
+.dig-dirrow {
+  height: 25px;
+  font-size: 14px;
+}
+.dig-group__head {
+  height: 28px;
+  font-size: 12.5px;
+}
+.dig-crow {
+  height: 28px;
+  font-size: 13.5px;
+}
+.dig-listhead {
+  height: 26px;
+  font-size: 12.5px;
+}
+
+/* ---------------- chips & mini buttons ---------------- */
+.dig-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 5px;
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+  color: var(--accent);
+  font-size: var(--fs-small);
+  max-width: 320px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.dig-chip__x {
+  border: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  padding: 0 2px;
+}
+.dig-mini {
+  height: 18px;
+  padding: 0 6px;
+  border: 1px solid var(--border-strong);
+  border-radius: 4px;
+  background: var(--bg-elev);
+  color: var(--fg-secondary);
+  cursor: pointer;
+  font-size: 11px;
+}
+.dig-mini:hover {
+  background: var(--bg-hover);
+  color: var(--fg);
+}
+
+/* ---------------- settings page ---------------- */
+.dig-settings {
+  padding: 8px 4px 16px;
+  max-width: 720px;
+}
+.dig-settings__title {
+  margin: 0 0 6px;
+  font-size: 16px;
+  color: var(--dsw-alias-label-primary);
+}
+.dig-settings__desc {
+  margin: 0 0 14px;
+  color: var(--dsw-alias-label-secondary);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.dig-settings__row {
+  display: flex;
+  gap: 16px;
+  padding: 8px 0;
+  border-top: 1px solid var(--dsw-alias-border-l1);
+  font-size: 13px;
+}
+.dig-settings__label {
+  flex: none;
+  width: 140px;
+  color: var(--dsw-alias-label-secondary);
+}
+.dig-settings__value {
+  flex: 1;
+  min-width: 0;
+  color: var(--dsw-alias-label-primary);
+  word-break: break-word;
+  font-family: var(--font-mono, ui-monospace, monospace);
+}
+
+/* ---------------- diff area above the panel ---------------- */
+.dig-diffarea {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 59;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-app);
+  color: var(--fg);
+  border-bottom: 1px solid var(--border-strong);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+}
+
+/* ---------------- context menu ---------------- */
+.dig-ctxmenu {
+  position: fixed;
+  z-index: 200;
+  padding: 4px;
+  border: 1px solid var(--dsw-alias-border-l1);
+  border-radius: 8px;
+  background: var(--dsw-alias-bg-overlay);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+}
+.dig-ctxmenu__item {
+  height: 26px;
+  padding: 0 10px;
+  border: none;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--dsw-alias-label-primary);
+  text-align: left;
+  cursor: pointer;
+  font-size: 13px;
+  white-space: nowrap;
+}
+.dig-ctxmenu__item:hover {
+  background: color-mix(in srgb, var(--dsw-alias-label-primary) 10%, transparent);
+}
+.dig-ctxmenu__item--danger {
+  color: var(--dsw-alias-state-error-primary);
+}
+.dig-ctxmenu__item:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.dig-ctxmenu__sep {
+  height: 1px;
+  margin: 4px 6px;
+  background: var(--dsw-alias-border-l1);
+}
+
+/* branch selection highlight (single click selects, does not switch) */
+.dig-branchrow[data-selected="true"] {
+  background: var(--bg-selected);
+  color: var(--fg-strong);
+}
+
+/* ---------------- diff viewer (IDEA-style) ---------------- */
+.dig-diff__toolbar {
+  flex: none;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 8px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-elev);
+}
+.dig-diff__sep {
+  width: 1px;
+  height: 16px;
+  background: var(--border);
+  margin: 0 4px;
+}
+.dig-seg {
+  display: inline-flex;
+  height: 24px;
+  border: 1px solid var(--border-strong);
+  border-radius: 5px;
+  overflow: hidden;
+}
+.dig-seg__btn {
+  width: 30px;
+  border: none;
+  background: transparent;
+  color: var(--fg-secondary);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.dig-seg__btn[data-active="true"] {
+  background: var(--bg-selected);
+  color: var(--fg-strong);
+}
+.dig-seg__split,
+.dig-seg__unified {
+  width: 15px;
+  height: 11px;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  display: inline-block;
+}
+.dig-seg__split {
+  background: linear-gradient(to right, transparent 46%, currentColor 46%, currentColor 54%, transparent 54%);
+}
+.dig-dsel {
+  height: 24px;
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  background: var(--bg-input);
+  color: var(--fg);
+  font-size: var(--fs-ui);
+  padding: 0 6px;
+  max-width: 240px;
+}
+.dig-diff__hint {
+  color: var(--fg-subtle);
+  font-size: var(--fs-small);
+}
+.dig-diff__split {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  line-height: 18px;
+}
+.dig-dsrow {
+  display: flex;
+  align-items: stretch;
+  min-height: 18px;
+}
+.dig-dsrow__no {
+  flex: none;
+  width: 44px;
+  text-align: right;
+  padding-right: 8px;
+  color: var(--fg-faint);
+  user-select: none;
+}
+.dig-dsrow__cell {
+  flex: 1;
+  min-width: 0;
+  padding: 0 8px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow: hidden;
+}
+.dig-dsrow__cell--old {
+  border-right: 1px solid var(--border);
+}
+.dig-dsrow--rep .dig-dsrow__cell--old,
+.dig-dsrow--del .dig-dsrow__cell--old {
+  background: color-mix(in srgb, var(--danger) 14%, transparent);
+}
+.dig-dsrow--rep .dig-dsrow__cell--new,
+.dig-dsrow--add .dig-dsrow__cell--new {
+  background: color-mix(in srgb, var(--vcs-added) 16%, transparent);
+}
+.dig-word {
+  background: color-mix(in srgb, var(--warning) 40%, transparent);
+  border-radius: 2px;
+  color: inherit;
+}
+.dig-durow {
+  display: flex;
+  min-height: 18px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  line-height: 18px;
+  white-space: pre-wrap;
+}
+.dig-durow__no {
+  flex: none;
+  width: 40px;
+  text-align: right;
+  padding-right: 6px;
+  color: var(--fg-faint);
+  user-select: none;
+}
+.dig-durow__sign {
+  flex: none;
+  width: 16px;
+  text-align: center;
+  color: var(--fg-subtle);
+}
+.dig-durow__text {
+  flex: 1;
+  min-width: 0;
+  padding-right: 8px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.dig-durow--del {
+  background: color-mix(in srgb, var(--danger) 13%, transparent);
+}
+.dig-durow--add {
+  background: color-mix(in srgb, var(--vcs-added) 15%, transparent);
+}
+.dig-difffold {
+  display: block;
+  width: 100%;
+  text-align: left;
+  height: 20px;
+  border: none;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-elev);
+  color: var(--fg-subtle);
+  font-size: var(--fs-small);
+  cursor: pointer;
+  padding: 0 12px;
+}
+.dig-difffold:hover {
+  background: var(--bg-hover);
+}
+
+/* metrics used by the vendored OpenIDEA DiffEditor.module.css */
+.dig-theme {
+  --h-header: 34px;
+  --h-row: 26px;
+  --h-control-small: 24px;
+  --accent-soft: color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+/* branch panel: search / folders / sections */
+.dig-branches__search {
+  flex: none;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 8px;
+  border-bottom: 1px solid var(--border);
+}
+.dig-branches__input {
+  flex: 1;
+  min-width: 0;
+  height: 24px;
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  background: var(--bg-input);
+  color: var(--fg);
+  padding: 0 8px;
+  outline: none;
+  font-size: var(--fs-ui);
+}
+.dig-branches__input:focus {
+  border-color: var(--accent);
+}
+.dig-branches__section {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  height: 24px;
+  padding: 0 8px;
+  color: var(--fg-secondary);
+  font-weight: 600;
+  font-size: var(--fs-small);
+}
+.dig-branches__folder {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 22px;
+  cursor: pointer;
+  color: var(--fg-secondary);
+  white-space: nowrap;
+  user-select: none;
+}
+.dig-branches__folder:hover {
+  background: var(--bg-tree-hover);
+}
+
+/* filter bar */
+.dig-searchwrap {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 26px;
+  padding: 0 6px;
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  background: var(--bg-input);
+  flex: 0 1 320px;
+}
+.dig-searchwrap .dig-search {
+  border: none;
+  background: transparent;
+  height: 24px;
+  flex: 1;
+  min-width: 60px;
+  padding: 0;
+}
+.dig-toggle {
+  height: 20px;
+  min-width: 22px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--fg-subtle);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  cursor: pointer;
+}
+.dig-toggle[data-on="true"] {
+  background: var(--bg-selected);
+  color: var(--fg-strong);
+}
+.dig-toggle:hover {
+  color: var(--fg);
+}
+.dig-filterbtn {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  padding: 0 8px;
+  border-radius: 5px;
+  color: var(--fg-secondary);
+  cursor: pointer;
+  font-size: var(--fs-ui);
+  white-space: nowrap;
+}
+.dig-filterbtn:hover {
+  background: var(--bg-hover);
+  color: var(--fg);
+}
+.dig-chip--static {
+  flex: none;
+}
+.dig-historybar {
+  flex: none;
+  padding: 4px 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* details file tree */
+.dig-dfile-dir {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 22px;
+  cursor: pointer;
+  color: var(--fg-secondary);
+  white-space: nowrap;
+  user-select: none;
+}
+.dig-dfile-dir:hover {
+  background: var(--bg-tree-hover);
+}
+.dig-dfile-count {
+  color: var(--fg-subtle);
+  font-size: var(--fs-small);
+  margin-left: 2px;
+}
+
+/* in-app prompt dialog */
+.dig-modal-mask {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dig-modal {
+  width: 380px;
+  max-width: 90vw;
+  padding: 16px;
+  border: 1px solid var(--dsw-alias-border-l1);
+  border-radius: 10px;
+  background: var(--dsw-alias-bg-overlay);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+  color: var(--dsw-alias-label-primary);
+}
+.dig-modal__title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.dig-modal__input {
+  width: 100%;
+  height: 30px;
+  padding: 0 10px;
+  border: 1px solid var(--dsw-alias-border-l2);
+  border-radius: 6px;
+  background: var(--dsw-alias-bg-layer-2);
+  color: var(--dsw-alias-label-primary);
+  outline: none;
+  font-size: 13px;
+  box-sizing: border-box;
+}
+.dig-modal__input:focus {
+  border-color: var(--dsw-alias-brand-primary);
+}
+.dig-modal__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+/* larger tree rows */
+.dig-dfile-dir {
+  height: 26px;
+  font-size: 14px;
+}
+.dig-dfile {
+  height: 24px;
+  font-size: 14px;
+}
+.dig-branchrow {
+  height: 24px;
+  font-size: 14px;
+}
+.dig-branches__folder {
+  height: 24px;
+  font-size: 14px;
+}
+.dig-branches__section {
+  height: 28px;
+}
+.dig-branches__input {
+  height: 26px;
+}
+
+.dig-filterbtn[data-active="true"] {
+  background: var(--bg-selected);
+  color: var(--fg-strong);
+}
+
+/* row selection must not select text (shift-click multiselect) */
+.dig-commitlist,
+.dig-crow,
+.dig-listhead,
+.dig-branches,
+.dig-branchrow,
+.dig-branches__folder,
+.dig-branches__section,
+.dig-changes,
+.dig-treewrap,
+.dig-filerow,
+.dig-dirrow,
+.dig-group__head,
+.dig-ddetails,
+.dig-dfile,
+.dig-dfile-dir {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* IDEA-style dialog for prompts */
+.dig-dialog {
+  width: 440px;
+  max-width: 90vw;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-elev);
+  color: var(--fg-strong);
+  border: 1px solid var(--border-popup);
+  border-radius: 10px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  font-family: var(--font-ui);
+  font-size: var(--fs-ui);
+}
+.dig-dialog__titlebar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 8px 0 14px;
+  border-bottom: 1px solid var(--border);
+}
+.dig-dialog__title {
+  flex: 1;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.dig-dialog__body {
+  padding: 16px 16px 8px;
+}
+.dig-dialog__input {
+  width: 100%;
+  height: 30px;
+  box-sizing: border-box;
+  padding: 0 10px;
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  background: var(--bg-input);
+  color: var(--fg-strong);
+  outline: none;
+  font-size: var(--fs-ui);
+}
+.dig-dialog__input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 30%, transparent);
+}
+.dig-dialog__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 12px 16px 16px;
+}
+
+/* unify changes-tree and details-tree row sizing */
+.dig-filerow {
+  height: 24px;
+  font-size: 13.5px;
+}
+.dig-dirrow {
+  height: 24px;
+  font-size: 13.5px;
+}
+.dig-dfile {
+  height: 24px;
+  font-size: 13.5px;
+}
+.dig-dfile-dir {
+  height: 24px;
+  font-size: 13.5px;
+}
+.dig-group__head {
+  height: 26px;
+}
+
+/* larger changes tree to match IDEA */
+.dig-filerow {
+  height: 28px;
+  font-size: 14px;
+}
+.dig-dirrow {
+  height: 26px;
+  font-size: 14px;
+}
+.dig-dfile {
+  height: 26px;
+  font-size: 14px;
+}
+.dig-dfile-dir {
+  height: 26px;
+  font-size: 14px;
+}
+.dig-check__box {
+  width: 16px;
+  height: 16px;
+}
+.dig-group__head {
+  height: 30px;
+  font-size: 13px;
+}
+.dig-filerow__letter {
+  font-size: 12px;
+}
+
+/* image diff */
+.dig-imgdiff {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+.dig-imgpane {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--border);
+}
+.dig-imgpane:last-child {
+  border-right: none;
+}
+.dig-imgpane__label {
+  flex: none;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  color: var(--fg-subtle);
+  font-size: var(--fs-small);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-elev);
+}
+.dig-imgpane__img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  margin: auto;
+  background: repeating-conic-gradient(#0000000d 0% 25%, transparent 0% 50%) 50% / 18px 18px;
+}
+.dig-lfs-badge {
+  padding: 0 6px;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  color: var(--accent);
+  font-size: var(--fs-tiny);
+  line-height: 16px;
+}
+.dig-lfs-note {
+  color: var(--fg-subtle);
+  font-size: var(--fs-small);
+}
+
+/* button styling fixes (primary hover/disabled readable) */
+.dig-btn--primary {
+  background: var(--accent, #3871e1);
+  border-color: var(--accent, #3871e1);
+  color: #fff;
+}
+.dig-btn--primary:hover {
+  background: color-mix(in srgb, var(--accent, #3871e1) 85%, #fff);
+  border-color: color-mix(in srgb, var(--accent, #3871e1) 85%, #fff);
+  filter: none;
+  color: #fff;
+}
+.dig-btn--primary:disabled {
+  background: color-mix(in srgb, var(--accent, #3871e1) 30%, var(--bg-elev, #eee));
+  border-color: var(--border-strong, #ccc);
+  color: var(--fg-subtle, #888);
+  opacity: 1;
+}
+.dig-btn:disabled:hover {
+  background: var(--bg-elev, #eee);
+}
+
+.dig-conf__labels {
+  flex: none;
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-elev);
+}
+.dig-conf__label {
+  flex: 1;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  color: var(--fg-secondary);
+  font-size: var(--fs-small);
+  font-weight: 600;
+}
+.dig-conf__label + .dig-conf__label {
+  border-left: 1px solid var(--border);
+}
+
+.dig-settings__edit {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-ui);
+}
+.dig-settings__input {
+  flex: 1;
+  min-width: 0;
+  height: 28px;
+  padding: 0 8px;
+  border: 1px solid var(--dsw-alias-border-l2);
+  border-radius: 6px;
+  background: var(--dsw-alias-bg-layer-2);
+  color: var(--dsw-alias-label-primary);
+  outline: none;
+  font-family: var(--font-mono, monospace);
+  font-size: 12px;
+}
+
+.dig-dialog__textarea {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 120px;
+  padding: 8px 10px;
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  background: var(--bg-input);
+  color: var(--fg-strong);
+  outline: none;
+  resize: vertical;
+  font-family: var(--font-mono);
+  font-size: var(--fs-code);
+  line-height: 1.5;
+}
+.dig-dialog__textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 30%, transparent);
+}
+
+/* compare view */
+.dig-compare {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+.dig-compare__files {
+  flex: none;
+  width: 280px;
+  min-height: 0;
+  overflow: auto;
+  border-right: 1px solid var(--border);
+}
+.dig-compare__file {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 24px;
+  padding: 0 10px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.dig-compare__file:hover {
+  background: var(--bg-tree-hover);
+}
+.dig-compare__file[data-selected="true"] {
+  background: var(--bg-selected);
+}
+.dig-compare__fname {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dig-compare__fdir {
+  color: var(--fg-subtle);
+  font-size: var(--fs-small);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dig-compare__diff {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+}
+
+/* final row metrics: taller rows, comfortable line-height */
+.dig-filerow {
+  height: 30px;
+  font-size: 14px;
+  line-height: 20px;
+  align-items: center;
+}
+.dig-filerow__name {
+  line-height: 20px;
+}
+.dig-filerow__dir {
+  line-height: 20px;
+}
+.dig-dirrow {
+  height: 28px;
+  font-size: 14px;
+  line-height: 20px;
+}
+.dig-dfile {
+  height: 28px;
+  font-size: 14px;
+  line-height: 20px;
+}
+.dig-dfile-dir {
+  height: 28px;
+  font-size: 14px;
+  line-height: 20px;
+}
+.dig-branchrow {
+  height: 26px;
+  font-size: 14px;
+  line-height: 20px;
+}
+.dig-group__head {
+  height: 30px;
+}
+
+.dig-banner--toast {
+  color: var(--fg-strong);
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+}
+
+/* reset native button chrome for filterbar buttons */
+button.dig-filterbtn,
+.dig-filterbtn {
+  border: 0;
+  background: transparent;
+  font-family: inherit;
+  line-height: 1;
+}
+.dig-filterbtn:hover {
+  background: var(--bg-hover);
+  color: var(--fg);
+}
+.dig-filterbtn[data-active="true"] {
+  background: var(--bg-selected);
+  color: var(--fg-strong);
+}
+
+/* Align typography/metrics with OpenIDEA tokens (13px ui, 26px rows) */
+.dig-theme {
+  --fs-ui: 13px;
+  --fs-small: 12px;
+  --fs-tiny: 11px;
+}
+.dig-filerow,
+.dig-dfile,
+.dig-dfile-dir,
+.dig-branchrow {
+  height: 26px;
+  font-size: 13px;
+  line-height: 18px;
+}
+.dig-dirrow {
+  height: 26px;
+  font-size: 13px;
+  line-height: 18px;
+}
+.dig-branches__folder {
+  height: 24px;
+  font-size: 13px;
+}
+.dig-check__box {
+  width: 14px;
+  height: 14px;
+}
+.dig-group__head {
+  height: 26px;
+  font-size: 12px;
+}
+.dig-crow {
+  height: 26px;
+  font-size: 13px;
+}
+.dig-listhead {
+  height: 24px;
+  font-size: 12px;
+}
+
+.dig-dfile[data-selected="true"] {
+  background: var(--bg-selected);
+  color: var(--fg-strong);
+}
+.dig-dfile[data-selected="true"]:hover {
+  background: var(--bg-selected);
+}
+
+/* merge editor */
+.dig-merge {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+}
+.dig-merge__text {
+  margin: 0;
+  padding: 2px 12px;
+  color: var(--fg-secondary);
+  white-space: pre-wrap;
+}
+.dig-merge__conflict {
+  margin: 6px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.dig-merge__cols {
+  display: flex;
+}
+.dig-merge__pane {
+  flex: 1;
+  min-width: 0;
+  padding: 6px 10px;
+}
+.dig-merge__pane--ours {
+  background: color-mix(in srgb, var(--vcs-added) 10%, transparent);
+  border-right: 1px solid var(--border);
+}
+.dig-merge__pane--theirs {
+  background: color-mix(in srgb, var(--vcs-modified) 10%, transparent);
+}
+.dig-merge__pane pre {
+  margin: 4px 0 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.dig-merge__label {
+  color: var(--fg-subtle);
+  font-size: var(--fs-tiny);
+}
+.dig-merge__actions {
+  display: flex;
+  gap: 6px;
+  padding: 6px 10px;
+}
+.dig-merge__actions .dig-btn[data-active="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+/* command palette */
+.dig-cmd-mask {
+  position: fixed;
+  inset: 0;
+  z-index: 320;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 12vh;
+}
+.dig-cmd {
+  width: 560px;
+  max-width: 92vw;
+  background: var(--dsw-alias-bg-overlay);
+  border: 1px solid var(--dsw-alias-border-l1);
+  border-radius: 10px;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+.dig-cmd__input {
+  width: 100%;
+  box-sizing: border-box;
+  height: 40px;
+  padding: 0 14px;
+  border: 0;
+  border-bottom: 1px solid var(--dsw-alias-border-l1);
+  background: transparent;
+  color: var(--dsw-alias-label-primary);
+  outline: none;
+  font-size: 14px;
+}
+.dig-cmd__list {
+  max-height: 50vh;
+  overflow: auto;
+  padding: 6px;
+}
+.dig-cmd__item {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  border-radius: 6px;
+  color: var(--dsw-alias-label-primary);
+  cursor: pointer;
+  font-size: 13px;
+}
+.dig-cmd__item[data-active="true"] {
+  background: var(--dsw-alias-bg-layer-2);
+}
+.dig-cmd__empty {
+  padding: 12px;
+  color: var(--dsw-alias-label-secondary);
+  font-size: 13px;
+}
+
+/* interactive rebase plan dialog */
+.dig-rebase-dialog {
+  width: 760px;
+  max-width: 92vw;
+}
+.dig-rebase-dialog__hint {
+  color: var(--fg-subtle);
+  font-size: var(--fs-tiny);
+  margin: 2px 0 8px;
+}
+.dig-rebase-dialog__list {
+  max-height: 52vh;
+  overflow: auto;
+  border-top: 1px solid var(--border);
+}
+.dig-rebase-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 32px;
+  border-bottom: 1px solid var(--border);
+  font-size: var(--fs-small);
+}
+.dig-rebase-row__action {
+  height: 24px;
+}
+.dig-rebase-row__sha {
+  font-family: var(--font-mono);
+  color: var(--fg-subtle);
+  width: 64px;
+  flex: none;
+}
+.dig-rebase-row__summary {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.dig-rebase-row__msg {
+  flex: 1;
+  height: 24px;
+}
+
+/* editable worktree diff */
+.dig-edit-overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--bg-app);
+  display: flex;
+  flex-direction: column;
+  z-index: 5;
+}
+.dig-edit-overlay__bar {
+  height: 36px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+  border-bottom: 1px solid var(--border);
+  font-size: var(--fs-small);
+}
+.dig-edit-overlay__text {
+  flex: 1;
+  width: 100%;
+  box-sizing: border-box;
+  resize: none;
+  border: 0;
+  outline: none;
+  padding: 8px 10px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  background: var(--bg-input);
+  color: var(--fg);
+}
+
+/* branches vertical action rail */
+.dig-branches {
+  flex-direction: row;
+}
+.dig-branches__rail {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 2px;
+  border-right: 1px solid var(--border);
+}
+.dig-branches__main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.dig-log__restore {
+  flex: none;
+  width: 22px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 8px;
+  cursor: pointer;
+  color: var(--fg-subtle);
+}
+.dig-log__restore:hover {
+  color: var(--fg);
+}
+.dig-group[data-inactive="true"] .dig-group__title {
+  color: var(--fg-subtle);
+}
+.dig-group[data-inactive="true"] .dig-dfile {
+  opacity: 0.75;
+}
+
+/* commit area: code font + right margin guide (OpenIDEA CommitView.message) */
+.dig-commit__message {
+  font-family: var(--font-mono);
+  font-size: var(--fs-code, 12px);
+  line-height: var(--lh-code, 18px);
+  --pad: 10px;
+  --guide: 72ch;
+  background:
+    linear-gradient(
+        to right,
+        transparent calc(var(--pad) + var(--guide)),
+        var(--border) calc(var(--pad) + var(--guide)),
+        var(--border) calc(var(--pad) + var(--guide) + 1px),
+        transparent calc(var(--pad) + var(--guide) + 1px)
+      )
+      no-repeat,
+    var(--bg-input);
+}
+.dig-commit__len[data-warn="true"] {
+  color: var(--warning);
+}
+.dig-filerow[draggable] {
+  cursor: grab;
+}
+
+/* Diff spans the column; the fixed panel covers its bottom edge (flush). */
+.dig-diffarea {
+  top: 0 !important;
+  bottom: 0 !important;
+}
+
+/* Reserve space via body shrink; panel is portaled to body so fixed is viewport-relative. */
+body.dig-docked {
+  height: calc(100vh - var(--dig-panel-h, 0px)) !important;
+  overflow: hidden !important;
+}
+body.dig-docked #root {
+  height: 100% !important;
+}
+
+/* Softer panel/diff shadows. */
+.dig-panel {
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+.dig-diffarea {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* No visible resize bar / hover tint on the panel edge. */
+.dig-panel__handle {
+  height: 0 !important;
+  background: transparent !important;
+}
+.dig-panel__handle:hover {
+  background: transparent !important;
+  opacity: 0 !important;
+}
+
+/* Fully remove the panel's top shadow for a flush, integrated look. */
+.dig-panel {
+  box-shadow: none !important;
+}
+
+/* Invisible resize grip at the panel's top edge (drag works, nothing is drawn). */
+.dig-panel__grip {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 5px;
+  z-index: 5;
+  cursor: row-resize;
+  background: transparent !important;
+}
+.dig-panel__grip:hover,
+.dig-panel__grip:active {
+  background: transparent !important;
+}
+.dig-commit__probs {
+  display: inline-flex;
+  align-items: center;
+  color: var(--warning);
+}
+
+/* Changes view: left tree / right commit panel (IDEA Commit tool window). */
+.dig-hlayout-c {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+}
+.dig-hlayout-c__main {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+.dig-hlayout-c__handle {
+  flex: none;
+  width: 5px;
+  cursor: col-resize;
+  background: transparent;
+}
+.dig-hlayout-c__handle:hover {
+  background: var(--accent);
+  opacity: 0.25;
+}
+.dig-hlayout-c__side {
+  flex: none;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid var(--border);
+}
+.dig-hlayout-c__side .dig-commit {
+  border-top: 0;
+  height: 100%;
+}
+
+/* Instant custom tooltip for every icon button / icon dropdown trigger. */
+.dig-iconbtn {
+  position: relative;
+}
+.dig-iconbtn[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  z-index: 9999;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 260px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 3px 7px;
+  border-radius: 5px;
+  background: var(--dsw-alias-bg-overlay, #2b2b2b);
+  color: var(--dsw-alias-label-primary, #fff);
+  border: 1px solid var(--dsw-alias-border-l1, rgba(255, 255, 255, 0.15));
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22);
+  font-size: 11px;
+  line-height: 1.4;
+  pointer-events: none;
+}
+.dig-filterbtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+/* Keep instant tooltips inside the viewport for edge-anchored icon buttons. */
+.dig-filerow__actions .dig-iconbtn[title]:hover::after,
+.dig-panel__header .dig-iconbtn[title]:hover::after,
+.dig-commit__bar .dig-iconbtn[title]:hover::after,
+.dig-filterbar .dig-iconbtn[title]:hover::after,
+.dig-details__files .dig-iconbtn[title]:hover::after {
+  left: auto;
+  right: 0;
+  transform: none;
+}
+.dig-branches__rail .dig-iconbtn[title]:hover::after,
+.dig-hlayout-c__handle + * .dig-iconbtn[title]:hover::after {
+  left: 0;
+  right: auto;
+  transform: none;
+}
+
+/* Disabled primary button must not lighten on hover. */
+.dig-btn--primary:disabled,
+.dig-btn--primary:disabled:hover,
+.dig-btn--primary:disabled:active {
+  background: color-mix(in srgb, var(--accent, #3871e1) 30%, var(--bg-elev, #eee)) !important;
+  border-color: var(--border-strong, #ccc) !important;
+  color: var(--fg-subtle, #888) !important;
+  filter: none !important;
+  opacity: 1 !important;
+  cursor: default;
+}
+
+/* Keep settings rows (and checkbox) a stable single-line height toggled or not. */
+.dig-settings .dig-settings__row {
+  min-height: 34px;
+  align-items: center;
+}
+.dig-settings .dig-check {
+  line-height: 1;
+}
+.dig-settings .dig-check__box {
+  line-height: 1;
+  font-size: 10px;
+  overflow: hidden;
+  flex: none;
+}
+.dig-settings .dig-check__label {
+  line-height: 18px;
+}
+
+/* Draw the settings checkbox tick without affecting text baseline. */
+.dig-settings .dig-check__box {
+  position: relative;
+}
+.dig-settings .dig-check__box[data-on="true"]::after {
+  content: "✓";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  line-height: 1;
+  color: #fff;
+}
+.dig-settings .dig-check {
+  height: 18px;
+}
+
+/* Native checkbox aligned with its label on one stable line. */
+.dig-settings-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 20px;
+  line-height: 20px;
+  vertical-align: middle;
+  cursor: pointer;
+}
+.dig-settings-check > input[type="checkbox"] {
+  margin: 0;
+  width: 15px;
+  height: 15px;
+  flex: none;
+  accent-color: var(--accent, #3871e1);
+}
+.dig-settings-check > span {
+  line-height: 20px;
+}
+.dig-group {
+  min-height: 24px;
+}
+.dig-group[data-drop="true"] {
+  outline: 1px dashed var(--accent);
+}
+
+/* Open-state GIT button matches the composer controls' hover subtlety. */
+.dig-entry[data-active="true"] {
+  background: color-mix(in srgb, var(--dsw-alias-label-primary) 8%, transparent);
+  color: var(--dsw-alias-label-primary);
+}
+.dig-entry[data-active="true"]:hover {
+  background: color-mix(in srgb, var(--dsw-alias-label-primary) 10%, transparent);
+  color: var(--dsw-alias-label-primary);
+}
+
+/* Align branch sync counters with the right-side icon column. */
+.dig-branches .dig-branchrow {
+  padding-right: 10px;
+}
+.dig-branches__section {
+  padding-right: 10px;
+}
+.dig-branchrow__sync {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+  line-height: 22px;
+  min-width: 32px;
+}
+
+@keyframes dig-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.dig-spin {
+  animation: dig-spin 0.8s linear infinite;
+}
+.dig-group[data-active="true"] .dig-group__title {
+  font-weight: 600;
+}
+
+/* Active changelist header: bold and strong text color. */
+.dig-group[data-active="true"] .dig-group__title {
+  font-weight: 700 !important;
+  color: var(--fg-strong) !important;
+}
+.dig-partial {
+  flex: none;
+  padding: 0 4px;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--vcs-modified) 16%, transparent);
+  color: var(--vcs-modified);
+  font-size: 10px;
+  line-height: 14px;
+}
+.dig-filerow[data-selected="true"] {
+  background: var(--bg-selected);
+  color: var(--fg-strong);
+}
+.dig-treewrap:focus {
+  outline: none;
+}
+
+/* Diff find bar + word wrap */
+.dig-difffind {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 30px;
+  padding: 0 10px;
+  border-bottom: 1px solid var(--border);
+}
+.dig-difffind input {
+  height: 22px;
+  width: 240px;
+  padding: 0 8px;
+  border: 1px solid var(--border-strong);
+  border-radius: 5px;
+  background: var(--bg-input);
+  color: var(--fg);
+  outline: none;
+}
+.dig-difffind__hint {
+  color: var(--fg-subtle);
+  font-size: var(--fs-tiny);
+}
+.dig-diffwrapbtn {
+  height: 24px;
+  padding: 0 6px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--fg-subtle);
+  cursor: pointer;
+  font-size: 13px;
+}
+.dig-diffwrapbtn[data-active="true"] {
+  background: var(--bg-selected);
+  color: var(--fg-strong);
+}
+.dig-diffarea[data-wrap="true"] .dig-dsrow,
+.dig-diffarea[data-wrap="true"] .dig-durow {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Diff syntax tokens (light/dark aware via tokens with fallbacks). */
+.dig-tok-com {
+  color: var(--syntax-comment, #6a9955);
+  font-style: italic;
+}
+.dig-tok-str {
+  color: var(--syntax-string, #ce9178);
+}
+.dig-tok-num {
+  color: var(--syntax-number, #b5cea8);
+}
+.dig-tok-kw {
+  color: var(--syntax-keyword, #569cd6);
+}
+.dig-group__comment {
+  margin-left: 8px;
+  color: var(--fg-subtle);
+  font-size: var(--fs-tiny);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Panel view error boundary */
+.dig-errorpane {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 16px;
+  color: var(--fg);
+}
+.dig-errorpane__title {
+  font-weight: 600;
+  color: var(--danger);
+  margin-bottom: 8px;
+}
+.dig-errorpane__msg {
+  white-space: pre-wrap;
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  color: var(--fg-secondary);
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 10px;
+}
+.dig-errorpane__actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+.dig-hunkcheck {
+  width: 12px;
+  height: 12px;
+  margin-left: 2px;
+  vertical-align: middle;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+.dig-check__box[data-indeterminate="true"] {
+  background: var(--accent);
+  box-shadow: none;
+}
+.dig-dash {
+  display: block;
+  width: 8px;
+  height: 2px;
+  background: #fff;
+}
+.dig-merge__pane--base {
+  background: color-mix(in srgb, var(--fg-subtle) 8%, transparent);
+  border-right: 1px solid var(--border);
+}
+
+/* Commit tool-window content tabs (Commit / Stash / Shelf) */
+.dig-committab {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+.dig-committab__bar {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 6px 0;
+  border-bottom: 1px solid var(--border);
+}
+.dig-committab__tab {
+  height: 26px;
+  padding: 0 10px;
+  border: 0;
+  background: transparent;
+  color: var(--fg-secondary);
+  cursor: pointer;
+  border-radius: 6px 6px 0 0;
+  font-size: var(--fs-ui);
+}
+.dig-committab__tab:hover {
+  background: var(--bg-hover);
+}
+.dig-committab__tab[data-active="true"] {
+  background: var(--bg-selected);
+  color: var(--fg-strong);
+  font-weight: 600;
+}
+.dig-committab__body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Diff colors: use OpenIDEA's diff surface tokens (legible in light/dark). */
+.dig-dsrow--rep .dig-dsrow__cell--old,
+.dig-dsrow--del .dig-dsrow__cell--old {
+  background: var(--diff-deleted);
+}
+.dig-dsrow--rep .dig-dsrow__cell--new,
+.dig-dsrow--add .dig-dsrow__cell--new {
+  background: var(--diff-inserted);
+}
+.dig-durow--del {
+  background: var(--diff-deleted);
+}
+.dig-durow--add {
+  background: var(--diff-inserted);
+}
+.dig-word {
+  background: color-mix(in srgb, var(--fg) 20%, transparent);
+  color: inherit;
+}
+.dig-settings__select {
+  height: 26px;
+  min-width: 160px;
+  padding: 0 8px;
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  background: var(--bg-input);
+  color: var(--fg);
+}
+
+/* Settings selects keep their border in every state (native select + DSH overrides). */
+.dig-settings__select,
+.dig-settings__select:hover,
+.dig-settings__select:focus,
+.dig-settings__select:focus-visible,
+.dig-settings__select:active,
+.dig-settings__select:disabled {
+  border: 1px solid var(--border-strong) !important;
+  border-radius: 6px !important;
+  background: var(--bg-input) !important;
+  color: var(--fg) !important;
+  outline: none !important;
+  box-shadow: none !important;
+  height: 26px;
+  padding: 0 8px;
+}
+
+/* Match OpenIDEA cm.ts diff painting: translucent line band + strong word segment + solid gutter. */
+.dig-dsrow--rep .dig-dsrow__cell--old,
+.dig-dsrow--del .dig-dsrow__cell--old {
+  background: color-mix(in srgb, var(--diff-deleted) 28%, transparent) !important;
+}
+.dig-dsrow--rep .dig-dsrow__cell--new,
+.dig-dsrow--add .dig-dsrow__cell--new {
+  background: color-mix(in srgb, var(--diff-inserted) 28%, transparent) !important;
+}
+.dig-durow--del {
+  background: color-mix(in srgb, var(--diff-deleted) 70%, transparent) !important;
+}
+.dig-durow--add {
+  background: color-mix(in srgb, var(--diff-inserted) 70%, transparent) !important;
+}
+.dig-word--deleted {
+  background: color-mix(in srgb, var(--diff-deleted) 85%, transparent) !important;
+  color: inherit !important;
+}
+.dig-word--inserted {
+  background: color-mix(in srgb, var(--diff-inserted) 85%, transparent) !important;
+  color: inherit !important;
+}
+.dig-dsrow--rep .dig-dsrow__no,
+.dig-dsrow--del .dig-dsrow__no {
+  box-shadow: inset 3px 0 0 var(--diff-deleted);
+}
+.dig-dsrow--add .dig-dsrow__no:last-of-type {
+  box-shadow: inset -3px 0 0 var(--diff-inserted);
+}
+
+/* No-repository empty state */
+.dig-norepo {
+  gap: 10px;
+  padding: 24px;
+}
+.dig-norepo__path {
+  color: var(--fg-subtle);
+  font-family: var(--font-mono);
+}
+.dig-norepo__actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.dig-norepo__clone {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: min(520px, 80vw);
+  margin-top: 8px;
+}
+.dig-norepo__dest {
+  display: flex;
+  gap: 8px;
+}
+.dig-norepo__dest .dig-modal__input {
+  flex: 1;
+}
+
+/* Merge conflicts dialog */
+.dig-conflicttable__summary {
+  padding: 0 0 10px;
+  color: var(--fg-secondary);
+  font-size: var(--fs-small);
+}
+.dig-conflicttable__head,
+.dig-conflicttable__row {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+}
+.dig-conflicttable__head {
+  padding: 7px 10px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border-strong);
+  border-bottom: 0;
+  border-radius: 6px 6px 0 0;
+  color: var(--fg-subtle);
+  font-size: var(--fs-small);
+  font-weight: 600;
+}
+.dig-conflicttable__head > span:first-child,
+.dig-conflicttable__path {
+  flex: 1;
+  min-width: 0;
+}
+.dig-conflicttable__head > span:nth-child(n + 2),
+.dig-conflicttable__cell {
+  flex: 0 0 210px;
+}
+.dig-conflicttable__head > span:nth-child(n + 2) {
+  text-align: center;
+}
+.dig-conflicttable__body {
+  max-height: min(52vh, 420px);
+  overflow: auto;
+  border: 1px solid var(--border-strong);
+  border-radius: 0 0 6px 6px;
+}
+.dig-conflicttable__row {
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--border);
+  min-height: 38px;
+  cursor: pointer;
+}
+.dig-conflicttable__row:last-child {
+  border-bottom: 0;
+}
+.dig-conflicttable__row[data-selected="true"] {
+  background: var(--bg-hover);
+}
+.dig-conflicttable__path {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+}
+.dig-conflicttable__cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--fg-subtle);
+  font-size: var(--fs-small);
+}
+.dig-conflicttable__cell .dig-btn {
+  padding: 3px 10px;
+  border: 1px solid var(--border-strong);
+  border-radius: 5px;
+  background: var(--bg-app);
+  color: var(--fg);
+  font-size: var(--fs-tiny);
+  cursor: pointer;
+}
+.dig-conflicttable__cell .dig-btn:hover {
+  background: var(--bg-hover);
+  border-color: var(--accent);
+}
+.dig-conflicttable__group {
+  padding: 7px 10px;
+  background: var(--bg-elev);
+  border-bottom: 1px solid var(--border);
+  color: var(--fg-secondary);
+  font-weight: 600;
+  font-size: var(--fs-small);
+}
+.dig-conflicttable__foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 8px;
+  color: var(--fg-subtle);
+  font-size: var(--fs-small);
+}
+
+/* Give the conflict table a wider dialog than the 380px Modal default. */
+.dig-conflict-dialog {
+  width: min(920px, calc(100vw - 48px)) !important;
+  max-height: calc(100vh - 48px) !important;
+}
+.dig-conflict-dialog .dig-conflicttable__body {
+  max-height: min(52vh, 420px);
+}
+
+.dig-conflicttable__cell .dig-btn--primary:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  filter: brightness(1.08);
+}
+
+/* Merge editor line numbers */
+.dig-merge__numbered {
+  max-height: 220px;
+  overflow: auto;
+  margin-top: 4px;
+}
+.dig-merge__line {
+  display: flex;
+  gap: 8px;
+  min-height: 18px;
+  line-height: 18px;
+}
+.dig-merge__no {
+  flex: none;
+  width: 28px;
+  text-align: right;
+  color: var(--fg-subtle);
+  user-select: none;
+  opacity: 0.75;
+}
+.dig-merge__code {
+  flex: 1;
+  min-width: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.dig-conflicttable__toolbar {
+  padding: 0 0 10px;
+}
+
+/* IDEA-style inward accept arrows on the inside edge of each source pane. */
+.dig-merge__pane {
+  position: relative;
+}
+.dig-merge__pane--ours {
+  padding-right: 34px;
+}
+.dig-merge__pane--theirs {
+  padding-left: 34px;
+}
+.dig-merge__edges {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 2;
+}
+.dig-merge__edges--right {
+  right: 5px;
+}
+.dig-merge__edges--left {
+  left: 5px;
+}
+.dig-merge__edge {
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid var(--border-strong);
+  border-radius: 4px;
+  background: var(--bg-elev);
+  color: var(--fg-secondary);
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 1;
+}
+.dig-merge__edge:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.dig-merge__edge--primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.dig-merge__edge--primary:hover {
+  filter: brightness(1.08);
+  color: #fff;
+}
+
+.dig-conflicttable__toolbar .dig-btn {
+  margin-right: 8px;
+}
+.dig-conflicttable__grouphead {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 10px;
+  background: var(--bg-elev);
+  border-bottom: 1px solid var(--border);
+  color: var(--fg-strong);
+  font-weight: 600;
+  font-size: var(--fs-small);
+}
+
+.dig-merge__bottom {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-top: 1px solid var(--border);
+  background: var(--bg-app);
+}
+
+/* ---------------------------- setup wizard ---------------------------- */
+
+.dig-setup {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  overflow: auto;
+  padding: 18px 16px;
+}
+.dig-setup__card {
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 16px 16px;
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  background: var(--bg-elev);
+}
+.dig-setup__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.dig-setup__path {
+  font-size: 11px;
+  opacity: 0.6;
+  word-break: break-all;
+}
+.dig-setup__steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin: 2px 0 4px;
+  padding: 0;
+  list-style: none;
+}
+.dig-setup__step {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-ui);
+  opacity: 0.5;
+}
+.dig-setup__step--active,
+.dig-setup__step--done {
+  opacity: 1;
+}
+.dig-setup__step--active {
+  font-weight: 600;
+}
+.dig-setup__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid var(--border-strong);
+  font-size: 10px;
+  line-height: 1;
+}
+.dig-setup__step--done .dig-setup__badge {
+  border-color: var(--vcs-added);
+  color: var(--vcs-added);
+}
+.dig-setup__step--active .dig-setup__badge {
+  border-color: var(--accent, #3574f0);
+  color: var(--accent, #3574f0);
+}
+.dig-setup__body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.dig-setup__hint {
+  font-size: var(--fs-ui);
+  line-height: 1.5;
+}
+.dig-setup__hint--muted {
+  font-size: 11px;
+  opacity: 0.6;
+}
+.dig-setup__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.dig-setup__providers {
+  display: flex;
+  gap: 8px;
+}
+.dig-setup__provider {
+  flex: 1;
+  height: 60px;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--fg);
+  font-size: var(--fs-ui);
+  font-weight: 600;
+  cursor: pointer;
+}
+.dig-setup__provider:hover {
+  background: var(--bg-hover);
+}
+.dig-setup__provider--active {
+  border-color: var(--accent, #3574f0);
+  color: var(--accent, #3574f0);
+}
+.dig-setup__field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.dig-setup__field > label {
+  font-size: 11px;
+  opacity: 0.7;
+}
+.dig-setup__error {
+  padding: 6px 8px;
+  border-radius: 6px;
+  background: var(--bg-hover);
+  color: var(--danger);
+  font-size: var(--fs-ui);
+  word-break: break-word;
+}
