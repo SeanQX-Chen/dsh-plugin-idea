@@ -1,0 +1,58 @@
+{
+  "meta": {
+    "title": "Idea",
+    "description": "识别项目的语言与技术栈，并浏览、直接修改其中的代码文件。"
+  },
+  "panel": {
+    "title": "Idea",
+    "subtitle": "项目识别"
+  },
+  "scan": {
+    "scanning": "扫描中…",
+    "rescan": "重新扫描",
+    "elapsed": "已扫描 {files} 个文件，用时 {ms} ms",
+    "truncated": "已达到扫描预算上限，结果不完整",
+    "pinned": "已钉住目录",
+    "following": "跟随会话目录",
+    "pin": "钉住目录",
+    "unpin": "跟随会话目录",
+    "chooseFolder": "选择目录…",
+    "empty": "该目录下没有找到文件。",
+    "error": "扫描失败：{message}"
+  },
+  "sections": {
+    "languages": "语言分布",
+    "stack": "技术栈",
+    "files": "文件",
+    "other": "其他"
+  },
+  "files": {
+    "search": "搜索文件名",
+    "noMatches": "没有匹配的文件",
+    "loading": "加载中…",
+    "emptyFolder": "空目录",
+    "parent": "上级目录",
+    "open": "在编辑器中打开",
+    "tooLarge": "文件过大，无法在此编辑"
+  },
+  "editor": {
+    "tabTitle": "Idea 编辑器",
+    "save": "保存",
+    "saving": "保存中…",
+    "saved": "已保存",
+    "unsaved": "未保存",
+    "revert": "放弃更改",
+    "close": "关闭",
+    "readOnly": "只读",
+    "tooLarge": "该文件超过 {limit}，只能以只读方式打开。",
+    "binary": "该文件看起来是二进制，无法以文本显示。",
+    "outsideRoot": "该文件在项目目录之外，只能只读打开。",
+    "conflict": "文件已在磁盘上被修改。",
+    "conflictReload": "重载磁盘版本",
+    "conflictKeep": "保留我的更改",
+    "loadError": "打开失败：{message}",
+    "saveError": "保存失败：{message}",
+    "lines": "{lines} 行",
+    "draft": "已恢复草稿"
+  }
+}

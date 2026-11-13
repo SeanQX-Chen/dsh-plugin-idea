@@ -1,0 +1,70 @@
+{
+  "name": "dsh-idea",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Recognize the languages and stack of a project, browse it, and edit its files in the right panel.",
+  "type": "module",
+  "main": "./index.js",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "idea-git.host.js",
+    "scan.js",
+    "stack.js",
+    "path-util.js",
+    "editor.bundle.js",
+    "editor.bundle.entry.js",
+    ".vendor/",
+    "locale/en.json",
+    "locale/zh.json",
+    "icon.svg",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "scripts": {
+    "build:editor": "node build-editor.mjs",
+    "build:client": "node build-client.mjs",
+    "check": "node repro-boot.mjs && node check-git.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-slots",
+        "@deepseek-ai/dsh-client-ui-sidebar-right",
+        "@deepseek-ai/dsh-client-modules",
+        "@deepseek-ai/dsh-client-connection",
+        "@deepseek-ai/dsh-client-ui-layout",
+        "@deepseek-ai/dsh-client-ui-conversation",
+        "@deepseek-ai/dsh-client-ui-workspace"
+      ]
+    },
+    "manifestVersion": 1
+  },
+  "peerDependencies": {
+    "@deepseek-ai/schemastery": "*"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/schemastery": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}

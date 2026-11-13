@@ -1,0 +1,58 @@
+{
+  "meta": {
+    "title": "Idea",
+    "description": "Recognize a project's languages and stack, then browse and edit its files."
+  },
+  "panel": {
+    "title": "Idea",
+    "subtitle": "Project insight"
+  },
+  "scan": {
+    "scanning": "Scanning…",
+    "rescan": "Rescan",
+    "elapsed": "Scanned {files} files in {ms} ms",
+    "truncated": "Stopped at the scan budget — the list is partial",
+    "pinned": "Pinned folder",
+    "following": "Following the session folder",
+    "pin": "Pin folder",
+    "unpin": "Follow session folder",
+    "chooseFolder": "Choose folder…",
+    "empty": "No files found in this folder.",
+    "error": "Could not scan this folder: {message}"
+  },
+  "sections": {
+    "languages": "Languages",
+    "stack": "Stack",
+    "files": "Files",
+    "other": "Other"
+  },
+  "files": {
+    "search": "Search file names",
+    "noMatches": "No matching files",
+    "loading": "Loading…",
+    "emptyFolder": "Empty folder",
+    "parent": "Parent folder",
+    "open": "Open in editor",
+    "tooLarge": "File is too large to edit here"
+  },
+  "editor": {
+    "tabTitle": "Idea editor",
+    "save": "Save",
+    "saving": "Saving…",
+    "saved": "Saved",
+    "unsaved": "Unsaved changes",
+    "revert": "Revert",
+    "close": "Close",
+    "readOnly": "Read only",
+    "tooLarge": "This file is larger than {limit} and opens read-only.",
+    "binary": "This file looks binary and cannot be shown as text.",
+    "outsideRoot": "This file is outside the project root and opens read-only.",
+    "conflict": "This file changed on disk.",
+    "conflictReload": "Reload from disk",
+    "conflictKeep": "Keep my changes",
+    "loadError": "Could not open the file: {message}",
+    "saveError": "Could not save: {message}",
+    "lines": "{lines} lines",
+    "draft": "Draft restored"
+  }
+}
